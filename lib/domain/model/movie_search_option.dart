@@ -10,8 +10,8 @@ part 'movie_search_option.g.dart';
 @freezed
 class MovieSearchOption with _$MovieSearchOption {
   factory MovieSearchOption({
-    @Default('0') String query,
-    @Default(MovieGenre.all) MovieGenre genre,
+    String? query,
+    MovieGenre? genre,
     @Default(MovieQuality.all) MovieQuality quality,
     @Default(MovieSort.dateAdded) MovieSort sort,
     @Default(MovieOrder.desc) MovieOrder order,

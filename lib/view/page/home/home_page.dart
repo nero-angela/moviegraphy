@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:prography/service/theme_service.dart';
 import 'package:prography/view/component/base_view.dart';
 import 'package:prography/view/lang/generated/l10n.dart';
+import 'package:prography/view/page/home/component/movie_feed.dart';
 import 'package:prography/view/page/home/component/text_form.dart';
 import 'package:prography/view/page/home/home_page_model.dart';
 import 'package:provider/provider.dart';
@@ -76,9 +77,23 @@ class HomePage extends StatelessWidget {
             ],
           ),
           body: SafeArea(
-            child: Column(
-              children: const [],
-            ),
+            child: viewModel.total == 0
+                ? const Center(child: Text("Empty"))
+                : PageView.builder(
+                    controller: viewModel.pageController,
+                    itemCount: viewModel.total,
+                    itemBuilder: (context, index) {
+                      final movie = viewModel.moviePage.movies[index];
+                      return MovieFeed(movie: movie);
+                    },
+                  ),
+            // : ListView.builder(
+            //     itemCount: viewModel.total,
+            //     itemBuilder: (context, index) {
+            //       final movie = viewModel.moviePage.movies[index];
+            //       return MovieFeed(movie: movie);
+            //     },
+            //   ),
           ),
         );
       },

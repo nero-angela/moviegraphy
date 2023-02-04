@@ -33,15 +33,15 @@ class RemoteMovieRepository extends BaseRemoteRepository {
       Response res = await dio.get(
         "${NetworkHelper.movieApiUrl}/list_movies.json",
         queryParameters: {
-          'query_term': option.query.toString(),
-          'genre': option.genre.toString(),
-          'quality': option.quality.toString(),
-          'sort_by': option.sort.toString(),
-          'order_by': option.order.toString(),
-          'minimum_rating': option.minimumRating.toString(),
-          'limit': option.limit.toString(),
-          'page': option.page.toString(),
-          'with_rt_ratings': option.isRottenTomatoesRatings.toString(),
+          'query_term': option.query,
+          'genre': option.genre,
+          'quality': option.quality,
+          'sort_by': option.sort,
+          'order_by': option.order,
+          'minimum_rating': option.minimumRating,
+          'limit': option.limit,
+          'page': option.page,
+          'with_rt_ratings': option.isRottenTomatoesRatings,
         },
       );
       return MoviePage.fromJson(res.data['data']);
