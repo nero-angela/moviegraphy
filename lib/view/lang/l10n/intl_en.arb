@@ -1,13 +1,13 @@
 {
   "@@locale": "en",
-  "prography": "Prography",
+  "prography": "MOVIE GRAPHY",
   "language": "Language",
-  "ko": "Korean",
-  "en": "English",
+  "ko": "KO",
+  "en": "EN",
   "theme": "Theme",
   "lightTheme": "Light",
   "darkTheme": "Dark",
   "feed": "Feed",
-  "search": "Search",
+  "searchMovieHint": "Movie search",
   "my": "My"
 }

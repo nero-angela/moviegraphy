@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Prography`
+  /// `MOVIE GRAPHY`
   String get prography {
     return Intl.message(
-      'Prography',
+      'MOVIE GRAPHY',
       name: 'prography',
       desc: '',
       args: [],
@@ -70,20 +70,20 @@ class S {
     );
   }
 
-  /// `Korean`
+  /// `KO`
   String get ko {
     return Intl.message(
-      'Korean',
+      'KO',
       name: 'ko',
       desc: '',
       args: [],
     );
   }
 
-  /// `English`
+  /// `EN`
   String get en {
     return Intl.message(
-      'English',
+      'EN',
       name: 'en',
       desc: '',
       args: [],
@@ -130,11 +130,11 @@ class S {
     );
   }
 
-  /// `Search`
-  String get search {
+  /// `Movie search`
+  String get searchMovieHint {
     return Intl.message(
-      'Search',
-      name: 'search',
+      'Movie search',
+      name: 'searchMovieHint',
       desc: '',
       args: [],
     );
