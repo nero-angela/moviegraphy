@@ -33,6 +33,10 @@ class ThemeService with ChangeNotifier {
   /// Material ThemeData 커스텀
   ThemeData get themeData {
     return ThemeData(
+      /// Remove splash effect
+      splashColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+
       /// Font
       fontFamily: theme.font.fontFamily,
       textTheme: TextTheme(

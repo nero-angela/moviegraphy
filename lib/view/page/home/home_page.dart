@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
             toolbarHeight: 0,
           ),
           body: SafeArea(
-            child: Row(
+            child: Column(
               children: [
                 Text(
                   S.current.prography,
@@ -50,7 +50,6 @@ class HomePage extends StatelessWidget {
                     IntlHelper.isKo ? S.current.ko : S.current.en,
                   ),
                 ),
-                const Divider(),
               ],
             ),
           ),
@@ -60,6 +59,7 @@ class HomePage extends StatelessWidget {
             selectedItemColor: context.color.primary,
             unselectedItemColor: context.color.inactive,
             backgroundColor: context.color.surface,
+            type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
                 icon: const Icon(CupertinoIcons.home),
