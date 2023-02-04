@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:prography/service/theme_service.dart';
+import 'package:prography/view/page/home/home_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const Prography());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ThemeService(),
+        ),
+      ],
+      child: const Prography(),
+    ),
+  );
 }
 
 class Prography extends StatelessWidget {
@@ -9,9 +21,10 @@ class Prography extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(),
+      theme: context.watch<ThemeService>().themeData,
+      home: const HomePage(),
     );
   }
 }
