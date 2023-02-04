@@ -54,6 +54,9 @@ class HomePage extends StatelessWidget {
                   (context.themeService.isKo ? S.current.ko : S.current.en).toUpperCase(),
                   style: context.font.body1.copyWith(
                     fontWeight: context.font.bold,
+                    color: context.themeService.isLightTheme
+                        ? context.color.primary
+                        : context.color.secondary,
                   ),
                 ),
               ),

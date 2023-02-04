@@ -43,7 +43,7 @@ class ThemeService with ChangeNotifier {
       highlightColor: Colors.transparent,
 
       /// Font
-      fontFamily: theme.font.fontFamily,
+      fontFamily: theme.font.fontFamily.name,
       textTheme: TextTheme(
         headline1: theme.font.headline1,
         headline2: theme.font.headline2,

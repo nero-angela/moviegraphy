@@ -29,7 +29,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "lightTheme": MessageLookupByLibrary.simpleMessage("Light"),
         "my": MessageLookupByLibrary.simpleMessage("My"),
-        "prography": MessageLookupByLibrary.simpleMessage("MOVIE GRAPHY"),
+        "prography": MessageLookupByLibrary.simpleMessage("MovieGraphy"),
         "searchMovieHint": MessageLookupByLibrary.simpleMessage("Movie search"),
         "theme": MessageLookupByLibrary.simpleMessage("Theme")
       };

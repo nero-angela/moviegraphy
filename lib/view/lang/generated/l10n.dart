@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `MOVIE GRAPHY`
+  /// `MovieGraphy`
   String get prography {
     return Intl.message(
-      'MOVIE GRAPHY',
+      'MovieGraphy',
       name: 'prography',
       desc: '',
       args: [],

@@ -30,10 +30,7 @@ class DarkTheme implements AppTheme {
 
   @override
   late AppFont font = AppFont(
-    fontFamily: MaruBuri.fontFamily,
-    light: MaruBuri.light,
-    regular: MaruBuri.regular,
-    bold: MaruBuri.bold,
+    fontFamily: const MaruBuri(),
     fontColor: color.text,
   );
 

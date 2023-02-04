@@ -3,19 +3,17 @@ part of 'app_theme.dart';
 class AppFont {
   AppFont({
     required this.fontFamily,
-    required this.light,
-    required this.regular,
-    required this.bold,
     required this.fontColor,
   });
 
   /// Font Family
-  final String fontFamily;
+  final FontFamily fontFamily;
 
   /// Font Weight
-  final FontWeight light;
-  final FontWeight regular;
-  final FontWeight bold;
+  FontWeight get light => fontFamily.light;
+  FontWeight get regular => fontFamily.regular;
+  FontWeight get semiBold => fontFamily.semiBold;
+  FontWeight get bold => fontFamily.bold;
 
   /// Font Color
   final Color fontColor;
@@ -23,42 +21,42 @@ class AppFont {
   /// Headline
   late final TextStyle headline1 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 28,
     color: fontColor,
   );
   late final TextStyle headline2 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 24,
     color: fontColor,
   );
   late final TextStyle headline3 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 21,
     color: fontColor,
   );
   late final TextStyle headline4 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 20,
     color: fontColor,
   );
   late final TextStyle headline5 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 19,
     color: fontColor,
   );
   late final TextStyle headline6 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 18,
     color: fontColor,
@@ -67,14 +65,14 @@ class AppFont {
   /// Subtitle
   late final TextStyle subtitle1 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 16,
     color: fontColor,
   );
   late final TextStyle subtitle2 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 15,
     color: fontColor,
@@ -83,14 +81,14 @@ class AppFont {
   /// Body
   late final TextStyle body1 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 14,
     color: fontColor,
   );
   late final TextStyle body2 = TextStyle(
     height: 1.3,
-    fontFamily: fontFamily,
+    fontFamily: fontFamily.name,
     fontWeight: regular,
     fontSize: 12,
     color: fontColor,

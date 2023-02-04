@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 
 /// MaruBuri
-abstract class MaruBuri {
-  static const String fontFamily = 'MaruBuri';
-  static const FontWeight light = FontWeight.w300;
-  static const FontWeight regular = FontWeight.w400;
-  static const FontWeight bold = FontWeight.w600;
+class MaruBuri implements FontFamily {
+  const MaruBuri();
+
+  @override
+  String get name => 'MaruBuri';
+
+  @override
+  FontWeight get light => FontWeight.w300;
+
+  @override
+  FontWeight get regular => FontWeight.w400;
+
+  @override
+  FontWeight get semiBold => FontWeight.w600;
+
+  @override
+  FontWeight get bold => FontWeight.w700;
+}
+
+abstract class FontFamily {
+  String get name;
+  FontWeight get light;
+  FontWeight get regular;
+  FontWeight get semiBold;
+  FontWeight get bold;
 }

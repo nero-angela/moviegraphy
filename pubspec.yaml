@@ -38,6 +38,8 @@ flutter:
           weight: 400
         - asset: asset/font/maru_buri/MaruBuri-SemiBold-600.ttf
           weight: 600
+        - asset: asset/font/maru_buri/MaruBuri-Bold-700.ttf
+          weight: 700
 flutter_intl:
   enabled: true
   arb_dir: lib/view/lang/l10n
