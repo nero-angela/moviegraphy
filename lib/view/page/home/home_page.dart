@@ -14,7 +14,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      viewModel: HomePageModel(),
+      viewModel: HomePageModel(
+        remoteMovieRepository: context.read(),
+      ),
       builder: (context, viewModel) {
         return Scaffold(
           appBar: AppBar(
@@ -45,6 +47,14 @@ class HomePage extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     context.read<ThemeService>().toggleLang();
+                  },
+                  child: Text(
+                    IntlHelper.isKo ? S.current.ko : S.current.en,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    viewModel.searchMovieList();
                   },
                   child: Text(
                     IntlHelper.isKo ? S.current.ko : S.current.en,
