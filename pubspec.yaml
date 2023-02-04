@@ -8,14 +8,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   cupertino_icons: ^1.0.2
   provider: ^6.0.5
+  intl: ^0.17.0
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-
 
 flutter:
   uses-material-design: true
@@ -29,3 +32,7 @@ flutter:
           weight: 400
         - asset: asset/font/maru_buri/MaruBuri-SemiBold-600.ttf
           weight: 600
+flutter_intl:
+  enabled: true
+  arb_dir: lib/view/lang/l10n
+  output_dir: lib/view/lang/generated

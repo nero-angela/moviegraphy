@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prography/helper/intl_helper.dart';
 import 'package:prography/service/theme_service.dart';
 import 'package:prography/view/base/base_view.dart';
+import 'package:prography/view/lang/generated/l10n.dart';
 import 'package:prography/view/page/home/home_page_model.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +28,7 @@ class HomePage extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "Hello Prography",
+                  S.current.prography,
                   style: context.font.headline1,
                 ),
                 IconButton(
@@ -40,8 +42,38 @@ class HomePage extends StatelessWidget {
                         : context.color.secondary,
                   ),
                 ),
+                TextButton(
+                  onPressed: () {
+                    context.read<ThemeService>().toggleLang();
+                  },
+                  child: Text(
+                    IntlHelper.isKo ? S.current.ko : S.current.en,
+                  ),
+                ),
+                const Divider(),
               ],
             ),
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            selectedItemColor: context.color.primary,
+            unselectedItemColor: context.color.inactive,
+            backgroundColor: context.color.surface,
+            items: [
+              BottomNavigationBarItem(
+                icon: const Icon(CupertinoIcons.home),
+                label: S.current.feed,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(CupertinoIcons.search),
+                label: S.current.search,
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(CupertinoIcons.person),
+                label: S.current.my,
+              ),
+            ],
           ),
         );
       },

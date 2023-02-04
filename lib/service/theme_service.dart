@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prography/helper/intl_helper.dart';
+import 'package:prography/view/lang/generated/l10n.dart';
 import 'package:prography/view/theme/core/app_theme.dart';
 import 'package:prography/view/theme/dark_theme.dart';
 import 'package:prography/view/theme/light_theme.dart';
@@ -11,6 +13,12 @@ class ThemeService with ChangeNotifier {
 
   /// 현재 테마
   AppTheme theme;
+
+  /// 언어 변경
+  void toggleLang() {
+    S.load(Locale(IntlHelper.isKo ? IntlHelper.en : IntlHelper.ko));
+    notifyListeners();
+  }
 
   /// 테마 변경
   void toggleTheme() {
@@ -55,11 +63,6 @@ class ThemeService with ChangeNotifier {
         titleTextStyle: theme.font.headline2.copyWith(
           color: theme.color.text,
         ),
-      ),
-
-      /// BottomSheet
-      bottomSheetTheme: const BottomSheetThemeData(
-        backgroundColor: Colors.transparent,
       ),
     );
   }
