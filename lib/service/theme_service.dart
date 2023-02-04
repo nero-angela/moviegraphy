@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prography/helper/intl_helper.dart';
+import 'package:intl/intl.dart';
+import 'package:prography/domain/enum/lang.dart';
 import 'package:prography/view/lang/generated/l10n.dart';
 import 'package:prography/view/theme/core/app_theme.dart';
 import 'package:prography/view/theme/dark_theme.dart';
@@ -13,10 +14,14 @@ class ThemeService with ChangeNotifier {
 
   /// 현재 테마
   AppTheme theme;
+  bool get isLightTheme => theme.brightness == Brightness.light;
+
+  /// 현재 언어
+  bool get isKo => Intl.getCurrentLocale().toLowerCase().contains(Lang.ko.locale);
 
   /// 언어 변경
   void toggleLang() {
-    S.load(Locale(IntlHelper.isKo ? IntlHelper.en : IntlHelper.ko));
+    S.load(Locale(isKo ? Lang.en.locale : Lang.ko.locale));
     notifyListeners();
   }
 
@@ -68,16 +73,20 @@ class ThemeService with ChangeNotifier {
           color: theme.color.text,
         ),
       ),
+
+      /// BottomSheet
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: theme.color.surface,
+      ),
     );
   }
 }
 
 /// context를 이용해 바로 접근
 extension BuildContextExt on BuildContext {
-  AppTheme get theme => watch<ThemeService>().theme;
+  ThemeService get themeService => watch<ThemeService>();
+  AppTheme get theme => themeService.theme;
   AppColor get color => theme.color;
   AppDeco get deco => theme.deco;
   AppFont get font => theme.font;
-
-  bool get isLightTheme => theme.brightness == Brightness.light;
 }

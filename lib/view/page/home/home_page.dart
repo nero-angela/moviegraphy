@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:prography/helper/intl_helper.dart';
 import 'package:prography/service/theme_service.dart';
-import 'package:prography/view/base/base_view.dart';
+import 'package:prography/view/component/base_view.dart';
 import 'package:prography/view/lang/generated/l10n.dart';
+import 'package:prography/view/page/home/component/setting_bottom_sheet.dart';
 import 'package:prography/view/page/home/home_page_model.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,17 @@ class HomePage extends StatelessWidget {
               statusBarBrightness: context.theme.brightness,
               statusBarIconBrightness: context.theme.brightness,
             ),
-            toolbarHeight: 0,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => const SettingBottomSheet(),
+                  );
+                },
+                icon: const Icon(Icons.settings),
+              ),
+            ],
           ),
           body: SafeArea(
             child: Column(
@@ -32,33 +42,6 @@ class HomePage extends StatelessWidget {
                 Text(
                   S.current.prography,
                   style: context.font.headline1,
-                ),
-                IconButton(
-                  onPressed: () {
-                    context.read<ThemeService>().toggleTheme();
-                  },
-                  icon: Icon(
-                    context.isLightTheme ? CupertinoIcons.sun_max : CupertinoIcons.moon,
-                    color: context.isLightTheme
-                        ? context.color.primary
-                        : context.color.secondary,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    context.read<ThemeService>().toggleLang();
-                  },
-                  child: Text(
-                    IntlHelper.isKo ? S.current.ko : S.current.en,
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    viewModel.searchMovieList();
-                  },
-                  child: Text(
-                    IntlHelper.isKo ? S.current.ko : S.current.en,
-                  ),
                 ),
               ],
             ),

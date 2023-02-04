@@ -60,6 +60,66 @@ class S {
     );
   }
 
+  /// `Language`
+  String get language {
+    return Intl.message(
+      'Language',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Korean`
+  String get ko {
+    return Intl.message(
+      'Korean',
+      name: 'ko',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get en {
+    return Intl.message(
+      'English',
+      name: 'en',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Theme`
+  String get theme {
+    return Intl.message(
+      'Theme',
+      name: 'theme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Light`
+  String get lightTheme {
+    return Intl.message(
+      'Light',
+      name: 'lightTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get darkTheme {
+    return Intl.message(
+      'Dark',
+      name: 'darkTheme',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Feed`
   String get feed {
     return Intl.message(
@@ -85,26 +145,6 @@ class S {
     return Intl.message(
       'My',
       name: 'my',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Ko`
-  String get ko {
-    return Intl.message(
-      'Ko',
-      name: 'ko',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `En`
-  String get en {
-    return Intl.message(
-      'En',
-      name: 'en',
       desc: '',
       args: [],
     );

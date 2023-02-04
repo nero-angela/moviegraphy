@@ -1,9 +1,13 @@
 {
-  "@@locale" : "ko",
+  "@@locale": "ko",
   "prography": "프로그라피",
+  "language": "언어",
+  "ko": "한국어",
+  "en": "영어",
+  "theme": "테마",
+  "lightTheme": "라이트",
+  "darkTheme": "다크",
   "feed": "피드",
   "search": "검색",
-  "my": "마이",
-  "ko": "한국어",
-  "en": "영어"
+  "my": "마이"
 }

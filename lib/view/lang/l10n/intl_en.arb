@@ -1,9 +1,13 @@
 {
   "@@locale": "en",
   "prography": "Prography",
+  "language": "Language",
+  "ko": "Korean",
+  "en": "English",
+  "theme": "Theme",
+  "lightTheme": "Light",
+  "darkTheme": "Dark",
   "feed": "Feed",
   "search": "Search",
-  "my": "My",
-  "ko": "Ko",
-  "en": "En"
+  "my": "My"
 }

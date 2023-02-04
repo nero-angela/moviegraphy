@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prography/view/base/base_view_model.dart';
+import 'package:prography/view/component/base_view_model.dart';
 import 'package:provider/provider.dart';
 
 class BaseView<T extends BaseViewModel> extends StatelessWidget {
