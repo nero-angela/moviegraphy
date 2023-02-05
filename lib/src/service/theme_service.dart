@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prography/core/helper/time_helper.dart';
 import 'package:prography/core/lang/generated/l10n.dart';
 import 'package:prography/core/theme/core/app_theme.dart';
 import 'package:prography/core/theme/dark_theme.dart';
@@ -10,7 +11,7 @@ import 'package:provider/provider.dart';
 class ThemeService with ChangeNotifier {
   ThemeService({
     AppTheme? theme,
-  }) : theme = theme ?? LightTheme();
+  }) : theme = theme ?? (TimeHelper.isDaytime ? LightTheme() : DarkTheme());
 
   /// 현재 테마
   AppTheme theme;
