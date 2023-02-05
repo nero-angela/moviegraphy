@@ -42,9 +42,8 @@ class MovieFeed extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               /// Title
               Expanded(
@@ -55,21 +54,25 @@ class MovieFeed extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(width: 16),
 
               /// Rating
               Rating(rating: movie.rating),
             ],
           ),
-          const SizedBox(height: 16),
+          if (movie.summary.trim().isNotEmpty) ...[
+            const SizedBox(height: 16),
 
-          /// Desc
-          Text(
-            movie.summary,
-            style: context.font.body1,
-            maxLines: 10,
-            overflow: TextOverflow.ellipsis,
-          ),
+            /// Desc
+            Text(
+              movie.summary,
+              style: context.font.body1,
+              maxLines: 10,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
 
+          /// Genre
           Wrap(
             spacing: 8,
             crossAxisAlignment: WrapCrossAlignment.start,
@@ -84,7 +87,7 @@ class MovieFeed extends StatelessWidget {
                   onGenrePressed(genre);
                 },
                 label: Text(
-                  genre.name.toUpperCase(),
+                  "$genre",
                   style: context.font.body1.copyWith(
                     color: context.color.onPrimary,
                     fontWeight: context.font.bold,

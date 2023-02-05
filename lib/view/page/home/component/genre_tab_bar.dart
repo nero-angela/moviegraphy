@@ -37,8 +37,8 @@ class GenreTabBar extends StatelessWidget {
                 final offset = genreController.animation?.value ?? 0;
                 final isSelected = (offset - index).abs() < 0.5;
                 return Text(
-                  "$genre".toUpperCase(),
-                  style: context.font.body2.copyWith(
+                  "$genre",
+                  style: context.font.body1.copyWith(
                     fontWeight: context.font.bold,
                     color: isSelected ? context.color.onPrimary : context.color.text,
                   ),

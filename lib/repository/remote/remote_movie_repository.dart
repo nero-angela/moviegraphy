@@ -34,7 +34,7 @@ class RemoteMovieRepository extends BaseRemoteRepository {
         "${NetworkHelper.movieApiUrl}/list_movies.json",
         queryParameters: {
           'query_term': option.query,
-          'genre': option.genre,
+          'genre': option.genre?.name,
           'quality': option.quality,
           'sort_by': option.sort,
           'order_by': option.order,

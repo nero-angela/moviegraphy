@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               IconButton(
                 onPressed: context.themeService.toggleLang,
                 icon: Text(
-                  (context.themeService.isKo ? S.current.ko : S.current.en).toUpperCase(),
+                  (context.themeService.isKo ? "EN" : "KO").toUpperCase(),
                   style: context.font.body1.copyWith(
                     fontWeight: context.font.bold,
                     color: context.themeService.isLightTheme
@@ -88,33 +88,33 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ],
           ),
           body: SafeArea(
-            child: viewModel.currentTotal == 0
+            child: TabBarView(
+              controller: genreController,
+              children: viewModel.moviePageByGenre.values.map<Widget>(
+                (moviePage) {
+                  /// Loading
+                  if (moviePage.movies.isEmpty) {
+                    return Center(
+                        child: CircularProgressIndicator(
+                      color: context.color.primary,
+                    ));
+                  }
 
-                /// Loading
-                ? Center(
-                    child: CircularProgressIndicator(
-                    color: context.color.primary,
-                  ))
-
-                /// Movie Feed List
-                : TabBarView(
-                    controller: genreController,
-                    children: viewModel.moviePageByGenre.values.map<Widget>(
-                      (moviePage) {
-                        return ListView.builder(
-                          itemCount: moviePage.movies.length,
-                          itemBuilder: (context, index) {
-                            final movie = moviePage.movies[index];
-                            return MovieFeed(
-                              movie: movie,
-                              currentGenre: viewModel.currentGenre,
-                              onGenrePressed: viewModel.animateToGenre,
-                            );
-                          },
-                        );
-                      },
-                    ).toList(),
-                  ),
+                  /// Movie Feed List
+                  return ListView.builder(
+                    itemCount: moviePage.movies.length,
+                    itemBuilder: (context, index) {
+                      final movie = moviePage.movies[index];
+                      return MovieFeed(
+                        movie: movie,
+                        currentGenre: viewModel.currentGenre,
+                        onGenrePressed: viewModel.animateToGenre,
+                      );
+                    },
+                  );
+                },
+              ).toList(),
+            ),
           ),
         );
       },
