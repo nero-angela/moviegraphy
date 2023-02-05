@@ -1,5 +1,4 @@
 # MOVIEGRAPHY
-Prograthy 8th Flutter Quest
 
 ## How To Run
 1. `flutter pub get`
