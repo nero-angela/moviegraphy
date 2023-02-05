@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             children: viewModel.moviePageByGenre.keys.map<Widget>(
               (genre) {
                 final MoviePage moviePage = viewModel.moviePageByGenre[genre]!;
-                final bool isFirstPage = moviePage.pageNumber == 1;
+                final bool isEmpty = moviePage.movies.isEmpty;
 
                 return Stack(
                   children: [
@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
 
                     /// Loading
                     MoviePageIndicator(
-                      isCenter: isFirstPage,
+                      isCenter: isEmpty,
                       isBusy: moviePage.isBusy,
                     ),
                   ],
