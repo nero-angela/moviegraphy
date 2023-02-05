@@ -1,0 +1,48 @@
+name: prography
+description: A new Flutter project.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.2 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.5
+  intl: ^0.17.0
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.8.0
+  dio: ^4.0.6
+  cached_network_image: ^3.2.3
+  bubble_tab_indicator: ^0.1.6
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  freezed: ^2.3.2
+  build_runner: ^2.3.3
+  json_serializable: ^6.6.1
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: MaruBuri
+      fonts:
+        - asset: asset/font/maru_buri/MaruBuri-Light-300.ttf
+          weight: 300
+        - asset: asset/font/maru_buri/MaruBuri-Regular-400.ttf
+          weight: 400
+        - asset: asset/font/maru_buri/MaruBuri-SemiBold-600.ttf
+          weight: 600
+        - asset: asset/font/maru_buri/MaruBuri-Bold-700.ttf
+          weight: 700
+flutter_intl:
+  enabled: true
+  arb_dir: lib/core/lang/l10n
+  output_dir: lib/core/lang/generated
