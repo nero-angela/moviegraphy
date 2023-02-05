@@ -41,11 +41,17 @@ class HomePageModel extends BaseViewModel {
   /// 선택된 장르의 영화 개수
   int get currentTotal => currentMoviePage.movies.length;
 
+  /// 특정 장르로 이동
+  void animateToGenre(MovieGenre genre) {
+    final int genreIndex = MovieGenre.values.indexOf(genre);
+    genreController.animateTo(genreIndex);
+  }
+
   /// 선택된 장르 양쪽 N개 검색
   Future<void> search([int n = 5]) async {
-    int currentIndex = MovieGenre.values.indexOf(currentGenre);
-    int lastIndex = MovieGenre.values.length - 1;
-    int start = (currentIndex - n ~/ 2).clamp(0, lastIndex);
+    final int currentIndex = MovieGenre.values.indexOf(currentGenre);
+    final int lastIndex = MovieGenre.values.length - 1;
+    final int start = (currentIndex - n ~/ 2).clamp(0, lastIndex);
     Set<MovieGenre> genreList = {};
     for (int i = start; i < start + n; i++) {
       int index = i.clamp(0, lastIndex);

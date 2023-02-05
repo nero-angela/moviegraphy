@@ -1,4 +1,3 @@
-import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +5,7 @@ import 'package:prography/domain/enum/movie_genre.dart';
 import 'package:prography/service/theme_service.dart';
 import 'package:prography/view/component/base_view.dart';
 import 'package:prography/view/lang/generated/l10n.dart';
+import 'package:prography/view/page/home/component/genre_tab_bar.dart';
 import 'package:prography/view/page/home/component/movie_feed.dart';
 import 'package:prography/view/page/home/home_page_model.dart';
 import 'package:provider/provider.dart';
@@ -54,45 +54,8 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
 
-                /// Genre TabBar
-                child: TabBar(
-                  controller: genreController,
-                  isScrollable: true,
-                  indicator: BubbleTabIndicator(
-                    indicatorColor: context.color.primary,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 0,
-                      vertical: 8,
-                    ),
-                    indicatorRadius: 12,
-                  ),
-                  tabs: MovieGenre.values.asMap().entries.map<Widget>(
-                    (entry) {
-                      final genre = entry.value;
-                      final index = entry.key;
-                      final anim = genreController.animation ??
-                          const AlwaysStoppedAnimation<double>(0);
-                      return Tab(
-                        child: AnimatedBuilder(
-                          animation: anim,
-                          builder: (context, child) {
-                            final offset = genreController.animation?.value ?? 0;
-                            final isSelected = (offset - index).abs() < 0.5;
-                            return Text(
-                              "$genre".toUpperCase(),
-                              style: context.font.body2.copyWith(
-                                fontWeight: context.font.bold,
-                                color: isSelected
-                                    ? context.color.onPrimary
-                                    : context.color.text,
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  ).toList(),
-                ),
+                /// GenreTabBar
+                child: GenreTabBar(genreController: genreController),
               ),
             ),
             actions: [
@@ -126,9 +89,15 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           ),
           body: SafeArea(
             child: viewModel.currentTotal == 0
-                ? const Center(child: Text("Empty"))
+
+                /// Loading
+                ? Center(
+                    child: CircularProgressIndicator(
+                    color: context.color.primary,
+                  ))
+
+                /// Movie Feed List
                 : TabBarView(
-                    // physics: const TabBarViewPhysics(),
                     controller: genreController,
                     children: viewModel.moviePageByGenre.values.map<Widget>(
                       (moviePage) {
@@ -136,7 +105,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                           itemCount: moviePage.movies.length,
                           itemBuilder: (context, index) {
                             final movie = moviePage.movies[index];
-                            return MovieFeed(movie: movie);
+                            return MovieFeed(
+                              movie: movie,
+                              onGenrePressed: viewModel.animateToGenre,
+                            );
                           },
                         );
                       },

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:prography/domain/enum/movie_genre.dart';
 import 'package:prography/domain/model/movie.dart';
 import 'package:prography/service/theme_service.dart';
 import 'package:prography/view/component/rating.dart';
@@ -8,9 +9,11 @@ class MovieFeed extends StatelessWidget {
   const MovieFeed({
     super.key,
     required this.movie,
+    required this.onGenrePressed,
   });
 
   final Movie movie;
+  final void Function(MovieGenre genre) onGenrePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -58,16 +61,32 @@ class MovieFeed extends StatelessWidget {
           const SizedBox(height: 16),
 
           /// Desc
-          Text(movie.summary),
+          Text(
+            movie.summary,
+            style: context.font.body1,
+            maxLines: 10,
+            overflow: TextOverflow.ellipsis,
+          ),
 
-          const SizedBox(height: 16),
           Wrap(
             spacing: 8,
-            runSpacing: 8,
             crossAxisAlignment: WrapCrossAlignment.start,
-            children: movie.genres.map<Widget>((genre) {
-              return Chip(
-                label: Text(genre.toUpperCase()),
+            children: MovieGenre.values.where((genre) {
+              return movie.genres.map((g) => g.toLowerCase()).contains(genre.name);
+            }).map<Widget>((genre) {
+              return ChoiceChip(
+                selected: false,
+                backgroundColor: context.color.primary,
+                onSelected: (_) {
+                  onGenrePressed(genre);
+                },
+                label: Text(
+                  genre.name.toUpperCase(),
+                  style: context.font.body1.copyWith(
+                    color: context.color.onPrimary,
+                    fontWeight: context.font.bold,
+                  ),
+                ),
               );
             }).toList(),
           ),
