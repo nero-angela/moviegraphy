@@ -107,6 +107,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                             final movie = moviePage.movies[index];
                             return MovieFeed(
                               movie: movie,
+                              currentGenre: viewModel.currentGenre,
                               onGenrePressed: viewModel.animateToGenre,
                             );
                           },

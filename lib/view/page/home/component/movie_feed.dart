@@ -10,9 +10,11 @@ class MovieFeed extends StatelessWidget {
     super.key,
     required this.movie,
     required this.onGenrePressed,
+    required this.currentGenre,
   });
 
   final Movie movie;
+  final MovieGenre currentGenre;
   final void Function(MovieGenre genre) onGenrePressed;
 
   @override
@@ -72,7 +74,8 @@ class MovieFeed extends StatelessWidget {
             spacing: 8,
             crossAxisAlignment: WrapCrossAlignment.start,
             children: MovieGenre.values.where((genre) {
-              return movie.genres.map((g) => g.toLowerCase()).contains(genre.name);
+              return movie.genres.map((g) => g.toLowerCase()).contains(genre.name) &&
+                  currentGenre != genre;
             }).map<Widget>((genre) {
               return ChoiceChip(
                 selected: false,
