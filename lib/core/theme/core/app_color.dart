@@ -6,8 +6,6 @@ class AppColor {
     required this.background,
     required this.text,
     required this.subtext,
-    required this.toastContainer,
-    required this.onToastContainer,
     required this.hint,
     required this.hintContainer,
     required this.onHintContainer,
@@ -23,10 +21,6 @@ class AppColor {
   /// Surface
   final Color surface;
   final Color background;
-
-  /// Text
-  final Color toastContainer;
-  final Color onToastContainer;
 
   /// Text
   final Color text;
