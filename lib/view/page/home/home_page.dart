@@ -1,23 +1,43 @@
+import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prography/domain/enum/movie_genre.dart';
 import 'package:prography/service/theme_service.dart';
 import 'package:prography/view/component/base_view.dart';
 import 'package:prography/view/lang/generated/l10n.dart';
 import 'package:prography/view/page/home/component/movie_feed.dart';
-import 'package:prography/view/page/home/component/text_form.dart';
 import 'package:prography/view/page/home/home_page_model.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+  late final HomePageModel homePageModel = HomePageModel(
+    remoteMovieRepository: context.read(),
+    genreController: genreController,
+  );
+
+  late final TabController genreController = TabController(
+    vsync: this,
+    length: MovieGenre.values.length,
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    homePageModel.search();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      viewModel: HomePageModel(
-        remoteMovieRepository: context.read(),
-      ),
+      viewModel: homePageModel,
       builder: (context, viewModel) {
         return Scaffold(
           appBar: AppBar(
@@ -29,21 +49,49 @@ class HomePage extends StatelessWidget {
               statusBarBrightness: context.theme.brightness,
               statusBarIconBrightness: context.theme.brightness,
             ),
-
-            /// Search
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(kToolbarHeight),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextForm(
-                  hint: S.current.searchMovieHint,
-                  suffix: IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      CupertinoIcons.search,
-                      color: context.color.text,
+
+                /// Genre TabBar
+                child: TabBar(
+                  controller: genreController,
+                  isScrollable: true,
+                  indicator: BubbleTabIndicator(
+                    indicatorColor: context.color.primary,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 0,
+                      vertical: 8,
                     ),
+                    indicatorRadius: 12,
                   ),
+                  tabs: MovieGenre.values.asMap().entries.map<Widget>(
+                    (entry) {
+                      final genre = entry.value;
+                      final index = entry.key;
+                      final anim = genreController.animation ??
+                          const AlwaysStoppedAnimation<double>(0);
+                      return Tab(
+                        child: AnimatedBuilder(
+                          animation: anim,
+                          builder: (context, child) {
+                            final offset = genreController.animation?.value ?? 0;
+                            final isSelected = (offset - index).abs() < 0.5;
+                            return Text(
+                              "$genre".toUpperCase(),
+                              style: context.font.body2.copyWith(
+                                fontWeight: context.font.bold,
+                                color: isSelected
+                                    ? context.color.onPrimary
+                                    : context.color.text,
+                              ),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ).toList(),
                 ),
               ),
             ),
@@ -77,23 +125,23 @@ class HomePage extends StatelessWidget {
             ],
           ),
           body: SafeArea(
-            child: viewModel.total == 0
+            child: viewModel.currentTotal == 0
                 ? const Center(child: Text("Empty"))
-                : PageView.builder(
-                    controller: viewModel.pageController,
-                    itemCount: viewModel.total,
-                    itemBuilder: (context, index) {
-                      final movie = viewModel.moviePage.movies[index];
-                      return MovieFeed(movie: movie);
-                    },
+                : TabBarView(
+                    // physics: const TabBarViewPhysics(),
+                    controller: genreController,
+                    children: viewModel.moviePageByGenre.values.map<Widget>(
+                      (moviePage) {
+                        return ListView.builder(
+                          itemCount: moviePage.movies.length,
+                          itemBuilder: (context, index) {
+                            final movie = moviePage.movies[index];
+                            return MovieFeed(movie: movie);
+                          },
+                        );
+                      },
+                    ).toList(),
                   ),
-            // : ListView.builder(
-            //     itemCount: viewModel.total,
-            //     itemBuilder: (context, index) {
-            //       final movie = viewModel.moviePage.movies[index];
-            //       return MovieFeed(movie: movie);
-            //     },
-            //   ),
           ),
         );
       },

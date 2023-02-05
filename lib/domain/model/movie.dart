@@ -31,8 +31,6 @@ class Movie with _$Movie {
     @JsonKey(name: 'medium_cover_image') required String mediumCoverImage,
     @JsonKey(name: 'large_cover_image') required String largeCoverImage,
     @JsonKey(name: 'state') required String state,
-    @JsonKey(name: 'date_uploaded') required String dateUploaded,
-    @JsonKey(name: 'date_uploaded_unix') required int dateUploadedUnix,
   }) = _Movie;
 
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);

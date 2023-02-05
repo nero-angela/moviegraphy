@@ -19,11 +19,12 @@ class MovieFeed extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
+          AspectRatio(
+            aspectRatio: 1 / 1,
             child: Container(
-              // margin: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 boxShadow: context.deco.shadow,
+                color: context.color.surface,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: ClipRRect(

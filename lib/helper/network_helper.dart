@@ -10,17 +10,17 @@ abstract class NetworkHelper {
       InterceptorsWrapper(
         onRequest: (options, handler) {
           // 요청시
-          log('REQ : [${options.method}] ${options.path}');
+          log('REQ : [${options.method}] ${options.uri}');
           return handler.next(options);
         },
         onResponse: (response, handler) {
           // 수신시
-          log('RES : [${response.statusCode}] ${response.requestOptions.path}');
+          log('RES : [${response.statusCode}] ${response.requestOptions.uri}');
           return handler.next(response);
         },
         onError: (DioError e, handler) {
           // 에러시
-          log('ERR : [${e.response?.statusCode}] ${e.requestOptions.path}');
+          log('ERR : [${e.response?.statusCode}] ${e.requestOptions.uri}');
           return handler.next(e);
         },
       ),
