@@ -26,10 +26,8 @@ class MovieFeed extends StatelessWidget {
         children: [
           AspectRatio(
             aspectRatio: 1 / 1,
-            child: Container(
+            child: DecoratedBox(
               decoration: BoxDecoration(
-                boxShadow: context.deco.shadow,
-                color: context.color.surface,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: ClipRRect(
@@ -77,8 +75,7 @@ class MovieFeed extends StatelessWidget {
             spacing: 8,
             crossAxisAlignment: WrapCrossAlignment.start,
             children: MovieGenre.values.where((genre) {
-              return movie.genres.map((g) => g.toLowerCase()).contains(genre.name) &&
-                  currentGenre != genre;
+              return movie.genres.map((g) => g.toLowerCase()).contains(genre.name);
             }).map<Widget>((genre) {
               return ChoiceChip(
                 selected: false,

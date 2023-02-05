@@ -17,7 +17,7 @@ class MovieSearchOption with _$MovieSearchOption {
     @Default(MovieOrder.desc) MovieOrder order,
     @Default(0) int minimumRating,
     @Default(20) int limit,
-    @Default(0) int page,
+    @Default(1) int page,
     @Default(false) bool isRottenTomatoesRatings,
   }) = _MovieSearchOption;
 

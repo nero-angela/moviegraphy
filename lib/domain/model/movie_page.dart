@@ -10,6 +10,7 @@ class MoviePage with _$MoviePage {
   factory MoviePage({
     @JsonKey(name: 'movie_count') required int movieCount,
     @JsonKey(name: 'page_number') required int pageNumber,
+    @Default(false) bool isBusy,
     required int limit,
     required List<Movie> movies,
   }) = _MoviePage;

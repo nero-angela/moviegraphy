@@ -38,7 +38,7 @@ class LightTheme implements AppTheme {
   AppDeco deco = AppDeco(
     shadow: [
       BoxShadow(
-        color: Palette.black.withOpacity(0.1),
+        color: Palette.black.withOpacity(0.5),
         blurRadius: 35,
       ),
     ],

@@ -2,11 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prography/domain/enum/movie_genre.dart';
+import 'package:prography/domain/model/movie_page.dart';
 import 'package:prography/service/theme_service.dart';
 import 'package:prography/view/component/base_view.dart';
+import 'package:prography/view/component/custom_physics.dart';
 import 'package:prography/view/lang/generated/l10n.dart';
 import 'package:prography/view/page/home/component/genre_tab_bar.dart';
 import 'package:prography/view/page/home/component/movie_feed.dart';
+import 'package:prography/view/page/home/component/movie_page_indicator.dart';
 import 'package:prography/view/page/home/home_page_model.dart';
 import 'package:provider/provider.dart';
 
@@ -43,7 +46,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
           appBar: AppBar(
             title: Text(
               S.current.prography,
-              style: context.font.headline1,
+              style: context.font.headline1.copyWith(
+                fontWeight: context.font.bold,
+              ),
             ),
             systemOverlayStyle: SystemUiOverlayStyle(
               statusBarBrightness: context.theme.brightness,
@@ -87,34 +92,51 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               ),
             ],
           ),
-          body: SafeArea(
-            child: TabBarView(
-              controller: genreController,
-              children: viewModel.moviePageByGenre.values.map<Widget>(
-                (moviePage) {
-                  /// Loading
-                  if (moviePage.movies.isEmpty) {
-                    return Center(
-                        child: CircularProgressIndicator(
-                      color: context.color.primary,
-                    ));
-                  }
+          body: TabBarView(
+            controller: genreController,
+            children: viewModel.moviePageByGenre.keys.map<Widget>(
+              (genre) {
+                final MoviePage moviePage = viewModel.moviePageByGenre[genre]!;
+                final bool isFirstPage = moviePage.pageNumber == 1;
 
-                  /// Movie Feed List
-                  return ListView.builder(
-                    itemCount: moviePage.movies.length,
-                    itemBuilder: (context, index) {
-                      final movie = moviePage.movies[index];
-                      return MovieFeed(
-                        movie: movie,
-                        currentGenre: viewModel.currentGenre,
-                        onGenrePressed: viewModel.animateToGenre,
-                      );
-                    },
-                  );
-                },
-              ).toList(),
-            ),
+                return Stack(
+                  children: [
+                    /// Scroll Ended -> Next Page
+                    NotificationListener<ScrollEndNotification>(
+                      onNotification: (notification) {
+                        if (notification.metrics.extentAfter < 500) {
+                          if (!viewModel.currentMoviePage.isBusy) {
+                            viewModel.searchNextPage();
+                          }
+                        }
+                        return false;
+                      },
+
+                      /// Movie Feed List
+                      child: ListView.builder(
+                        physics: const CustomPhysics(),
+                        key: PageStorageKey(genre),
+                        itemCount: moviePage.movies.length,
+                        itemBuilder: (context, index) {
+                          final movie = moviePage.movies[index];
+                          return MovieFeed(
+                            movie: movie,
+                            currentGenre: viewModel.currentGenre,
+                            onGenrePressed: viewModel.animateToGenre,
+                          );
+                        },
+                      ),
+                    ),
+
+                    /// Loading
+                    MoviePageIndicator(
+                      isCenter: isFirstPage,
+                      isBusy: moviePage.isBusy,
+                    ),
+                  ],
+                );
+              },
+            ).toList(),
           ),
         );
       },

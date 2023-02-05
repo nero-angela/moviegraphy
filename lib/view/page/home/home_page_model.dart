@@ -25,10 +25,10 @@ class HomePageModel extends BaseViewModel {
   Map<MovieGenre, MoviePage> moviePageByGenre = {
     for (MovieGenre genre in MovieGenre.values)
       genre: MoviePage(
-        limit: 20,
+        limit: 5,
         movieCount: 0,
         movies: [],
-        pageNumber: 0,
+        pageNumber: 1,
       ),
   };
 
@@ -60,23 +60,36 @@ class HomePageModel extends BaseViewModel {
     await Future.wait(genreList.map((genre) => _fetchMovie(genre: genre)));
   }
 
+  /// 다음 페이지 요청
+  Future<void> searchNextPage() async {
+    await _fetchMovie(page: currentMoviePage.pageNumber + 1);
+  }
+
   /// 선택된 장르의 영화 검색
   Future<void> _fetchMovie({MovieGenre? genre, int? page}) async {
     MovieGenre targetGenre = genre ?? currentGenre;
     MoviePage targetMoviePage = moviePageByGenre[targetGenre]!;
-
     if (targetMoviePage.movies.isNotEmpty && page == null) {
-      /// 0페이지 데이터가 이미 존재
+      /// 해당 페이지의 데이터가 이미 있는 경우
+      return;
+    } else if (targetMoviePage.isBusy) {
+      /// 이미 요청중인 경우
       return;
     }
 
-    MoviePage? result = await _remoteMovieRepository.search(MovieSearchOption(
+    /// Loading
+    moviePageByGenre[targetGenre] = targetMoviePage.copyWith(isBusy: true);
+    notifyListeners();
+
+    MoviePage? resultMoviePage = await _remoteMovieRepository.search(MovieSearchOption(
       genre: targetGenre,
+      limit: targetMoviePage.limit,
       page: page ?? targetMoviePage.pageNumber,
     ));
-    if (result != null) {
-      moviePageByGenre[targetGenre] = result.copyWith(
-        movies: [...targetMoviePage.movies, ...result.movies],
+    if (resultMoviePage != null) {
+      moviePageByGenre[targetGenre] = resultMoviePage.copyWith(
+        movies: [...targetMoviePage.movies, ...resultMoviePage.movies],
+        isBusy: false,
       );
       notifyListeners();
     }

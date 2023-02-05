@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:prography/domain/enum/lang.dart';
 import 'package:prography/helper/provider_helper.dart';
 import 'package:prography/service/theme_service.dart';
 import 'package:prography/view/lang/generated/l10n.dart';
@@ -28,6 +29,7 @@ class Prography extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      locale: Locale(Lang.en.locale),
       supportedLocales: S.delegate.supportedLocales,
       theme: context.watch<ThemeService>().themeData,
       home: const HomePage(),
