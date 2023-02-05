@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:prography/core/base/base_remote_repository.dart';
 import 'package:prography/core/helper/network_helper.dart';
 import 'package:prography/src/domain/entity/movie.dart';
 import 'package:prography/src/domain/entity/movie_page.dart';
@@ -9,7 +10,6 @@ import 'package:prography/src/domain/enum/movie_genre.dart';
 import 'package:prography/src/domain/enum/movie_order.dart';
 import 'package:prography/src/domain/enum/movie_quality.dart';
 import 'package:prography/src/domain/enum/movie_sort.dart';
-import 'package:prography/core/base/base_remote_repository.dart';
 
 typedef SearchMovieList = Future<List<Movie>> Function({
   String? queryTern,
@@ -31,7 +31,7 @@ class RemoteMovieRepository extends BaseRemoteRepository {
   Future<MoviePage?> search(MovieSearchOption option) async {
     try {
       Response res = await dio.get(
-        "${NetworkHelper.movieApiUrl}/list_movies.json",
+        "${NetworkHelper.movieAPIUrl}/list_movies.json",
         queryParameters: {
           'query_term': option.query,
           'genre': option.genre?.name,

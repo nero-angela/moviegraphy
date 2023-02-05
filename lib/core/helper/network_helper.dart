@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
-abstract class NetworkHelper {
-  static const String movieApiUrl = 'https://yts.mx/api/v2';
+mixin NetworkHelper {
+  static const String movieAPIUrl = 'https://yts.mx/api/v2';
+  static const String googleTransAPIUrl =
+      'https://translate.googleapis.com/translate_a/single';
 
   static final Dio dio = Dio()
     ..interceptors.add(

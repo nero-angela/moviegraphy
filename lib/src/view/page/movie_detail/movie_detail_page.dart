@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prography/core/base/base_view.dart';
 import 'package:prography/src/domain/entity/movie.dart';
 import 'package:prography/src/service/theme_service.dart';
-import 'package:prography/core/base/base_view.dart';
-import 'package:prography/src/view/component/themed_hero.dart';
 import 'package:prography/src/view/component/rating.dart';
+import 'package:prography/src/view/component/themed_hero.dart';
 import 'package:prography/src/view/page/movie_detail/movie_detail_page_model.dart';
+import 'package:provider/provider.dart';
 
 class MovieDetailPage extends StatelessWidget {
   const MovieDetailPage({
@@ -21,10 +22,23 @@ class MovieDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<MovieDetailPageModel>(
-      viewModel: MovieDetailPageModel(),
+      viewModel: MovieDetailPageModel(
+        movie: movie,
+        themeService: context.read(),
+        remoteGoogleTransRepository: context.read(),
+      ),
       builder: (context, viewModel) {
         final deviceSize = MediaQuery.of(context).size;
         return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              viewModel.translate();
+            },
+            backgroundColor: context.color.primary,
+            child: const Icon(
+              Icons.translate,
+            ),
+          ),
           body: CustomScrollView(
             slivers: [
               SliverAppBar(
@@ -35,7 +49,7 @@ class MovieDetailPage extends StatelessWidget {
                   duration: const Duration(milliseconds: 300),
                   opacity: viewModel.isAppBarCollapsed ? 1 : 0,
                   child: Text(
-                    movie.title,
+                    viewModel.movie.title,
                     style: context.font.headline4.copyWith(
                       fontWeight: context.font.bold,
                     ),
@@ -89,9 +103,9 @@ class MovieDetailPage extends StatelessWidget {
                     );
                     return FlexibleSpaceBar(
                       background: Hero(
-                        tag: movie.largeCoverImage,
+                        tag: viewModel.movie.largeCoverImage,
                         child: CachedNetworkImage(
-                          imageUrl: movie.largeCoverImage,
+                          imageUrl: viewModel.movie.largeCoverImage,
                           fit: BoxFit.fitWidth,
                         ),
                       ),
@@ -105,14 +119,14 @@ class MovieDetailPage extends StatelessWidget {
                   child: Column(
                     children: [
                       ThemedHero(
-                        tag: movie.title,
+                        tag: viewModel.movie.title,
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             /// Title
                             Expanded(
                               child: Text(
-                                "[${movie.year}] ${movie.title}",
+                                "[${viewModel.movie.year}] ${viewModel.title}",
                                 style: context.font.headline2.copyWith(
                                   fontWeight: context.font.bold,
                                 ),
@@ -121,7 +135,7 @@ class MovieDetailPage extends StatelessWidget {
                             const SizedBox(width: 16),
 
                             /// Rating
-                            Rating(rating: movie.rating),
+                            Rating(rating: viewModel.movie.rating),
                           ],
                         ),
                       ),
@@ -130,9 +144,9 @@ class MovieDetailPage extends StatelessWidget {
 
                       /// Desc
                       ThemedHero(
-                        tag: movie.descriptionFull,
+                        tag: viewModel.movie.descriptionFull,
                         child: Text(
-                          movie.descriptionFull.split('.').asMap().entries.map((entry) {
+                          viewModel.description.split('.').asMap().entries.map((entry) {
                             /// 줄 변경
                             int index = entry.key;
                             String word = entry.value;

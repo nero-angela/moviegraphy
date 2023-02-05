@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:prography/core/base/base_view_model.dart';
 import 'package:prography/src/domain/entity/movie_page.dart';
 import 'package:prography/src/domain/entity/movie_search_option.dart';
 import 'package:prography/src/domain/enum/movie_genre.dart';
 import 'package:prography/src/repository/remote_movie_repository.dart';
-import 'package:prography/core/base/base_view_model.dart';
 
 class HomePageModel extends BaseViewModel {
   HomePageModel({
