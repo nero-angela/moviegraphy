@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 onPressed: context.themeService.toggleLang,
                 icon: Text(
                   (context.themeService.isKo ? "EN" : "KO").toUpperCase(),
-                  style: context.font.body1.copyWith(
+                  style: context.font.headline6.copyWith(
                     fontWeight: context.font.bold,
                     color: context.themeService.isLightTheme
                         ? context.color.primary
